@@ -1,7 +1,6 @@
 name: V5 Ultimate Bot Runner
 on:
-  schedule:
-    - cron: '*/15 * * * *'
+  push:
   workflow_dispatch:
 jobs:
   run-bot:
