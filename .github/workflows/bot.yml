@@ -1,10 +1,10 @@
 name: V5 Ultimate Bot Runner
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
   schedule:
     - cron: '0 * * * *'
+  push:
+    branches: [ main ]
 jobs:
   run-bot:
     runs-on: ubuntu-latest
@@ -14,5 +14,10 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install yfinance pandas numpy requests
-      - run: python fix.py
-      - run: python v5_ultimate_bot.py
+      - name: Run Bot
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python fix.py
+          python v5_ultimate_bot.py
