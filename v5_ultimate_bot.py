@@ -43,6 +43,7 @@ def is_nfp():
         return now.date()==first_friday.date() and 11 <= now.hour <= 14
     except: return False
 
+signals_found = False
 for name,ticker in PAIRS.items():
     try:
         df15=yf.download(ticker,period="5d",interval="15m",progress=False)
@@ -97,5 +98,9 @@ for name,ticker in PAIRS.items():
 🕐 {datetime.utcnow().strftime('%H:%M UTC')}
 """
         send(msg)
+        signals_found = True
     except Exception as e:
         print(f"{name} {e}")
+
+if not signals_found:
+    send("✅ V6 Bot Live - Scanning: EURUSD, GBPUSD, NAS100, XAUUSD etc - No trendline break yet - Next scan in 15m. Features: BUY/SELL, 100 pips TP, SCALP/SWING, Candle pattern")
