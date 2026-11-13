@@ -3,7 +3,20 @@ from datetime import datetime, timedelta
 
 TOKEN=os.getenv("TELEGRAM_TOKEN")
 CHAT_ID=os.getenv("CHAT_ID")
-def send(m): requests.post(f"https://api.telegram.org/bot{TOKEN}/sendMessage",data={"chat_id":CHAT_ID,"text":m,"parse_mode":"Markdown"})
+def send(m):
+    if not TOKEN or not CHAT_ID:
+        print("TOKEN MISSING")
+        return
+    try:
+        response = requests.post(
+            f"https://api.telegram.org/bot{TOKEN}/sendMessage",
+            data={"chat_id": CHAT_ID, "text": m, "parse_mode": "Markdown"},
+            timeout=15,
+        )
+        print(f"TELEGRAM response status: {response.status_code}")
+        print(f"TELEGRAM response: {response.text}")
+    except requests.RequestException as e:
+        print(f"TELEGRAM request failed: {e}")
 
 PAIRS={
     "EURUSD":"EURUSD=X","GBPUSD":"GBPUSD=X","USDJPY":"USDJPY=X","USDCAD":"USDCAD=X",
