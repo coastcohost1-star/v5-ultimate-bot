@@ -374,11 +374,11 @@ def scan_once(state):
         print("No new signals.")
     v5.save_state(state)
 
-def main():
-  state = {}
+  def main():
+      state = {}
     
-    once = "--once" in sys.argv
-    while True:
+      once = "--once" in sys.argv
+      while True:
         try:
             scan_once(state)
         except Exception as e:
