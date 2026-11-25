@@ -375,7 +375,8 @@ def scan_once(state):
     v5.save_state(state)
 
 def main():
-    state = v5.load_state()
+  state = {}
+    
     once = "--once" in sys.argv
     while True:
         try:
